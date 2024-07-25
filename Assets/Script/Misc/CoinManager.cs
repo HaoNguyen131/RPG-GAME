@@ -4,8 +4,8 @@ using UnityEngine.UI;
 public class CoinManager : MonoBehaviour
 {
     public static CoinManager instance;
-    private int coinCount;
-    public Text coinText; // Đối tượng UI Text để hiển thị số lượng đồng xu
+    private int scoreCount;
+    public Text scoreText; // Đối tượng UI Text để hiển thị điểm
 
     private void Awake()
     {
@@ -22,20 +22,20 @@ public class CoinManager : MonoBehaviour
 
     private void Start()
     {
-        coinCount = 0;
-        UpdateCoinText();
+        scoreCount = 0;
+        UpdateScoreText();
     }
 
-    // Phương thức tăng số lượng đồng xu
+    // Phương thức tăng điểm
     public void IncreaseCoinCount()
     {
-        coinCount++;
-        UpdateCoinText();
+        scoreCount++;
+        UpdateScoreText();
     }
 
-    // Cập nhật số lượng đồng xu lên UI Text
-    private void UpdateCoinText()
+    // Cập nhật số lượng điểm
+    private void UpdateScoreText()
     {
-        coinText.text = "Coins: " + coinCount.ToString();
+        scoreText.text = "Score: " + scoreCount.ToString();
     }
 }
