@@ -1,25 +1,44 @@
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
+using System.Collections;
 
 public class Timer : MonoBehaviour
 {
-    public Text timerText;
-    private float startTime;
+    [Tooltip("Thời gian quy định cho mỗi màn chơi (giây).")]
+    public float levelTime = 60f; // Thời gian mặc định cho level, có thể chỉnh sửa trong Inspector
+    private float timeLeft;
     private bool isRunning = true;
+    public Text timerText;
+    public GameManager gameManager; // Thêm tham chiếu tới GameManager
 
     void Start()
     {
-        startTime = Time.time;
+        timeLeft = levelTime;
+        UpdateTimerText();
+        StartCoroutine(Countdown());
     }
 
-    void Update()
+    void UpdateTimerText()
     {
-        if (isRunning)
+        if (timerText != null)
         {
-            float t = Time.time - startTime;
-            string minutes = ((int)t / 60).ToString();
-            string seconds = (t % 60).ToString("f2");
-            timerText.text = minutes + ":" + seconds;
+            timerText.text = "Time Left: " + timeLeft.ToString("F2") + "s";
+        }
+    }
+
+    IEnumerator Countdown()
+    {
+        while (timeLeft > 0 && isRunning)
+        {
+            yield return new WaitForSeconds(1f);
+            timeLeft--;
+            UpdateTimerText();
+        }
+
+        if (timeLeft <= 0)
+        {
+            GameOver();
         }
     }
 
@@ -30,6 +49,12 @@ public class Timer : MonoBehaviour
 
     public float GetElapsedTime()
     {
-        return Time.time - startTime;
+        return levelTime - timeLeft;
+    }
+
+    void GameOver()
+    {
+        // Hiển thị menu Game Over
+        gameManager.GameOver(); // Gọi hàm GameOver từ GameManager
     }
 }

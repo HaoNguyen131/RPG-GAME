@@ -1,7 +1,6 @@
 ﻿using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
-
 public class GameManager : MonoBehaviour
 {
     public GameObject gameOverMenu; // Tham chiếu tới UI Canvas chứa các nút Menu và Play Again
@@ -16,14 +15,14 @@ public class GameManager : MonoBehaviour
     private void Update()
     {
         // Kiểm tra nếu người chơi đã chết
-        if (playerHealth.health <= 0)
+        if (playerHealth != null && playerHealth.health <= 0)
         {
             // Gọi hàm GameOver
             GameOver();
         }
     }
 
-    void GameOver()
+    public void GameOver()
     {
         // Tạm dừng game
         Time.timeScale = 0;
@@ -46,6 +45,8 @@ public class GameManager : MonoBehaviour
         // Bỏ tạm dừng game
         Time.timeScale = 1;
         // Tải lại scene hiện tại
-        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        string currentSceneName = SceneManager.GetActiveScene().name;
+        SceneManager.LoadScene(currentSceneName);
     }
+
 }
