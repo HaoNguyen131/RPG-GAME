@@ -1,4 +1,4 @@
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class MainMenu : MonoBehaviour
@@ -7,4 +7,10 @@ public class MainMenu : MonoBehaviour
     {
         SceneManager.LoadScene("LoadingScene");
     }
-}
+    public void ExitGame()
+    {
+        // Kết thúc ứng dụng
+        Application.Quit();
+    } 
+
+   }

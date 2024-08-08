@@ -4,7 +4,8 @@ using UnityEngine;
 using UnityEngine.UI;
 
 public class PlayerHealth : MonoBehaviour
-{   
+{
+    public GameManager gameManager;
     public float health;
     public float maxHealth1;
     public Image healthBar;
@@ -46,7 +47,7 @@ public class PlayerHealth : MonoBehaviour
 
         if (health <= 0)
         {
-            Destroy(gameObject);
+            Die();
         }
     }
 
@@ -62,6 +63,14 @@ public class PlayerHealth : MonoBehaviour
     {
         yield return new WaitForSeconds(dameRecoveryTime);// Chờ đợi trong dameRecoveryTime giây
         canTakeDamage = true;// Cho phép người chơi nhận sát thương lại
+    }
+    private void Die()
+    {
+        if (gameManager != null)
+        {
+            gameManager.GameOver(); // Gọi hàm GameOver từ GameManager để hiển thị menu Game Over
+        }
+        gameObject.SetActive(false); // Ẩn đối tượng người chơi hoặc dừng các hành động của người chơi
     }
 }
 
